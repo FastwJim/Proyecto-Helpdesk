@@ -1,0 +1,51 @@
+{% load tailwind_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Helpdesk - Iniciar Sesión{% endblock %}</title>
+    {% load static %}
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    {% block extra_css %}{% endblock %}
+    <style>
+        /* Forzar color blanco en los labels y campos de texto */
+        .login-form label {
+            color: #fff !important;
+        }
+        .login-form input {
+            color: #fff !important;
+            background-color: #23233a !important;
+            border-color: #44446a !important;
+        }
+        .login-form input::placeholder {
+            color: #bbb !important;
+        }
+    </style>
+</head>
+<body class="bg-[#19192b] min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md">
+        <div class="bg-[#23233a] rounded-2xl shadow-2xl p-8">
+            <div class="flex flex-col items-center mb-6">
+                <img src="{% static 'images/logo.png' %}" alt="HelpDesk" class="w-60 h-40"> 
+            
+                <br>
+                <h2 class="text-2xl font-bold text-indigo-200 mb-1">HelpDesk</h2>
+                <p class="text-gray-400 text-sm">Bienvenido, por favor inicia sesión para continuar</p>
+            </div>
+            <form method="POST" class="space-y-5 login-form">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+                    Iniciar Sesión
+                </button>
+            </form>
+   
+        </div>
+        <div class="text-center mt-4 text-gray-500 text-xs">
+            &copy; {{ now|date:"Y" }} HelpDesk. Todos los derechos reservados.
+        </div>
+    </div>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
